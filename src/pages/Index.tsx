@@ -4,13 +4,17 @@ import { LedToggle } from "@/components/LedToggle";
 import { SettingsMenu } from "@/components/SettingsMenu";
 
 const Index = () => {
-  // Force landscape orientation
+  // Force landscape orientation with proper type checking
   useEffect(() => {
     const lockOrientation = async () => {
       try {
-        await screen.orientation.lock("landscape");
+        if (screen.orientation && 'lock' in screen.orientation) {
+          await (screen.orientation as any).lock('landscape');
+        } else {
+          console.log("Screen orientation lock not supported on this device");
+        }
       } catch (error) {
-        console.log("Orientation lock not supported");
+        console.log("Failed to lock orientation:", error);
       }
     };
     lockOrientation();
