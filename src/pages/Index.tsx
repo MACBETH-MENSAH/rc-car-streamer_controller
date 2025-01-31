@@ -3,13 +3,18 @@ import { VirtualJoystick } from "@/components/VirtualJoystick";
 import { LedToggle } from "@/components/LedToggle";
 import { SettingsMenu } from "@/components/SettingsMenu";
 
+// Define the extended ScreenOrientation interface
+interface ExtendedScreenOrientation extends ScreenOrientation {
+  lock(orientation: OrientationLockType): Promise<void>;
+}
+
 const Index = () => {
   // Force landscape orientation with proper type checking
   useEffect(() => {
     const lockOrientation = async () => {
       try {
         if (screen.orientation && 'lock' in screen.orientation) {
-          await (screen.orientation as any).lock('landscape');
+          await ((screen.orientation as ExtendedScreenOrientation).lock('landscape'));
         } else {
           console.log("Screen orientation lock not supported on this device");
         }
