@@ -3,6 +3,9 @@ import { VirtualJoystick } from "@/components/VirtualJoystick";
 import { LedToggle } from "@/components/LedToggle";
 import { SettingsMenu } from "@/components/SettingsMenu";
 
+// Define the OrientationLockType type
+type OrientationLockType = "any" | "natural" | "landscape" | "portrait" | "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary";
+
 // Define the extended ScreenOrientation interface
 interface ExtendedScreenOrientation extends ScreenOrientation {
   lock(orientation: OrientationLockType): Promise<void>;
